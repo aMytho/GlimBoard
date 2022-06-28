@@ -1,0 +1,32 @@
+<p>Set the board dimensions.</p>
+<form [formGroup]="dimensionForm" #dimensionForm2 (ngSubmit)="onSubmit()" class="text-xl font-semibold flex flex-col gap-4">
+    <div class="flex flex-row">
+        <label for="columns">Columns: </label>
+        <input id="columns" type="number" formControlName="columns"
+        class="bg-slate-600 text-white p-2 rounded-md" placeholder="{{defaults.columns}}">
+        <p>Set the amount of columns. The buttons will be resized to match the new dimension</p>
+    </div>
+    <div class="flex flex-row">
+        <label for="rowHeight">Row Height: </label>
+        <input id="rowHeight" type="number" maxlength="4" minlength="0"formControlName="rowHeight"
+            class="bg-slate-600 text-white p-2 rounded-md" placeholder="{{defaults.rowHeight}}">
+            <p>Set the height of a row. The buttons will be resized to match the new dimension.</p>
+    </div>
+    <div class="flex flex-row">
+        <label for="squish">Squishy: </label>
+        <select [value]="defaults.squish" id="squish" type="text" formControlName="squish" class="bg-slate-600 text-white p-2 rounded-md">
+            <option value="vertical" selected="{{defaults.squish == 'vertical'}}">Vertical</option>
+            <option value="horizontal" selected="{{defaults.squish == 'horizontal'}}">Horizontal</option>
+            <option value="null" selected="{{defaults.squish == null}}">None</option>
+        </select>
+        <p><b>Squish</b> the board.</p>
+    </div>
+
+    <div>
+        <p>Complete the form to enable button.</p>
+        <p>Form Status: {{ dimensionForm.status }}</p>
+        <button type="submit" [disabled]="!dimensionForm.valid"
+            class="bg-blue-400 rounded-md cursor-pointer p-1 text-lg font-normal">Save</button>
+    </div>
+
+</form>
