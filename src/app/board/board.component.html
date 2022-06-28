@@ -1,7 +1,46 @@
-<p>board works!</p>
-<div class="flex flex-row flex-wrap mt-4 items-center gap-4">
-    <div *ngFor="let button of buttons">
-        <p>{{button}}</p>
-        <app-button></app-button>
-    </div>
+<div class="mt-4 gap-4 h-full w-full" id="boardContainer">
+    <ktd-grid [cols]="config.columns"
+    [rowHeight]="config.rowHeight"
+    [layout]="layout"
+    [compactType]="config.squish"
+    (layoutUpdated)="onLayoutUpdated($event)">
+        <ktd-grid-item *ngFor="let button of buttons;" [id]="button.id.toString()">
+            <p>{{button.id}}</p>
+            <app-button [button]="button"></app-button>
+        </ktd-grid-item>
+    </ktd-grid>
 </div>
+
+<div class="fixed z-50 right-4 bottom-4 bg-purple-500 rounded-xl flex flex-col gap-y-2 p-2">
+        <svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+            class="bi bi-plus cursor-pointer" viewBox="0 0 16 16" title="Add Button"
+            (click)="openTemplateSheetMenu('add')">
+            <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                fill="white"></path>
+        </svg>
+        <svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+        viewBox="0 0 512 512" title="Save" class="cursor-pointer"
+        (click)="openTemplateSheetMenu('edit')">
+            <path fill="white"
+            d="M472.971,122.344,373.656,23.029A23.838,23.838,0,0,0,356.687,16H56A24.028,24.028,0,0,0,32,40V472a24.028,24.028,0,0,0,24,24H456a24.028,24.028,0,0,0,24-24V139.313A23.838,23.838,0,0,0,472.971,122.344ZM320,48v96H176V48ZM448,464H64V48h80V176H352V48h1.373L448,142.627Z"
+            class="ci-primary"></path> <path fill="white"
+            d="M252,224a92,92,0,1,0,92,92A92.1,92.1,0,0,0,252,224Zm0,152a60,60,0,1,1,60-60A60.068,60.068,0,0,1,252,376Z"
+            class="ci-primary"></path>
+        </svg>
+
+        <img src="assets/img/gear.svg" class="cursor-pointer invert" height="64" width="64"
+        (click)="openTemplateSheetMenu('dimensions')">
+</div>
+
+<ng-template let-bottomSheetRef="bottomSheetRef" #templateBottomSheet>
+    <div *ngIf="this.mode == 'add'">
+        <app-add-button></app-add-button>
+    </div>
+    <div *ngIf="this.mode == 'edit'">
+        <p>No button selected</p>
+    </div>
+    <div *ngIf="this.mode == 'dimensions'">
+        <app-dimensions></app-dimensions>
+    </div>
+</ng-template>
