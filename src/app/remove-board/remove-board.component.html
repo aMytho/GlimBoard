@@ -1,0 +1,22 @@
+<div class="p-4">
+    <h2>Enter the name of the board to delete. Alternativly, select it from the right menu.</h2>
+</div>
+<div class="p-4 flex flex-row gap-x-4">
+    <div>
+        <label for="exampleFormControlInput2" class="form-label inline-block mb-2
+        text-slate-100 text-xl">Enter the board to delete</label>
+        <input type="text" #btn class=" form-controlblock w-full px-4 py-2 text-xl
+        font-normal text-gray-700 bg-white bg-clip-padding
+        border border-solid border-gray-300 rounded transition ease-in-outm-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        id="exampleFormControlInput2" placeholder="Board 1" (input)="checkLiveInput(btn.value)" />
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4
+        rounded" (click)="deleteBoard(btn.value)">
+            Delete
+        </button>
+        <p class="text-red-500 font-semibold text-lg">{{error}}</p>
+    </div>
+    <div>
+        <p>aa</p>
+    </div>
+</div>
