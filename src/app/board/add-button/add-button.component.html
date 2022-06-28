@@ -1,0 +1,38 @@
+<p>Add a button!</p>
+<form [formGroup]="buttonForm" (ngSubmit)="onSubmit()" class="text-xl font-semibold flex flex-col gap-4">
+    <div class="flex flex-row">
+        <label for="buttonName">Button Name: </label>
+        <input id="buttonName" type="text" formControlName="buttonName" class="bg-slate-600 text-white p-2 rounded-md">
+    </div>
+
+    <div class="flex flex-row">
+        <label for="">Last Name: </label>
+        <input id="" type="text" formControlName="otherName" class="bg-slate-600 text-white p-2 rounded-md">
+    </div>
+
+    <div class="flex flex-row">
+        <label for="">Width: </label>
+        <input id="" type="number" formControlName="width" class="bg-slate-600 text-white p-2 rounded-md">
+
+        <label for="">Height: </label>
+        <input id="" type="number" maxlength="4" minlength="0" formControlName="height" class="bg-slate-600 text-white p-2 rounded-md">
+    </div>
+
+    <div class="flex flex-row">
+        <label for="">Actoin: </label>
+        <select id="" type="text" formControlName="action" class="bg-slate-600 text-white p-2 rounded-md">
+            <option>Command</option>
+            <option>Media</option>
+            <option>Message</option>
+        </select>
+        <p>{{buttonForm.value.action}}</p>
+    </div>
+
+    <div>
+        <p>Complete the form to enable button.</p>
+        <p>Form Status: {{ buttonForm.status }}</p>
+        <button type="submit" [disabled]="!buttonForm.valid"
+        class="bg-blue-400 rounded-md cursor-pointer p-1">Submit</button>
+    </div>
+
+  </form>
