@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DimensionsComponent } from '../form/dimensions/dimensions.component';
+import { InstructionComponent } from '../form/instruction/instruction.component';
+
 
 @Component({
     selector: 'app-add-button',
@@ -7,18 +10,47 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./add-button.component.css']
 })
 export class AddButtonComponent implements OnInit {
-    buttonForm = new FormGroup({
-        buttonName: new FormControl('', Validators.required),
-        otherName: new FormControl(''),
-        action: new FormControl('')
-    })
-    constructor() { }
+    public buttonForm!: FormGroup;
+
+    constructor(
+        private fb: FormBuilder,
+    ) { }
 
     ngOnInit(): void {
+        this.generateForm();
     }
 
-    onSubmit() {
-        console.warn(this.buttonForm.value)
+    public generateForm(): void {
+        this.buttonForm = this.fb.group({
+            instructions: this.fb.array([
+                InstructionComponent.addInstruction()
+            ]),
+            name: this.fb.control("", Validators.required),
+            dimensions: DimensionsComponent.addDimensions()
+        })
     }
 
+    get instructionAray() {
+        return this.buttonForm?.get("instructions") as FormArray;
+    }
+
+    get nameField() {
+        return this.buttonForm.get("name") as FormControl;
+    }
+
+    getDimensionForm() {
+        return this.buttonForm.get("dimensions") as FormGroup;
+    }
+
+    public addInstruction() {
+        this.instructionAray.push(InstructionComponent.addInstruction())
+    }
+
+    public deleteChild(index: number) {
+        this.instructionAray.removeAt(index)
+    }
+
+    public submit() {
+        console.log(this.buttonForm);
+    }
 }

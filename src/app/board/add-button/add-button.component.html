@@ -1,38 +1,24 @@
 <p>Add a button!</p>
-<form [formGroup]="buttonForm" (ngSubmit)="onSubmit()" class="text-xl font-semibold flex flex-col gap-4">
-    <div class="flex flex-row">
-        <label for="buttonName">Button Name: </label>
-        <input id="buttonName" type="text" formControlName="buttonName" class="bg-slate-600 text-white p-2 rounded-md">
+<form [formGroup]="buttonForm" (submit)="submit()" class="text-xl font-semibold flex flex-col gap-4 mt-2">
+    <div class="flex flex-row gap-x-2">
+        <p>Name:</p>
+        <input formControlName="name" class="formBackground">
+        <div *ngIf="nameField.hasError('required') && nameField.dirty">
+            <p>Error: Name is required</p>
+        </div>
     </div>
 
-    <div class="flex flex-row">
-        <label for="">Last Name: </label>
-        <input id="" type="text" formControlName="otherName" class="bg-slate-600 text-white p-2 rounded-md">
-    </div>
+    <h3>Button Dimentions</h3>
+    <app-dimensions [childForm]="getDimensionForm()"></app-dimensions>
 
-    <div class="flex flex-row">
-        <label for="">Width: </label>
-        <input id="" type="number" formControlName="width" class="bg-slate-600 text-white p-2 rounded-md">
+    <h3>Button Instructions</h3>
+    <p>Choose any amount of instructions</p>
+    <app-instruction *ngFor="let childForm of instructionAray.controls; let i = index;" [childForm]="childForm | cast"
+        (deleteEvent)="deleteChild($event)" [index]="i">
+    </app-instruction>
+    <button (click)="addInstruction()" [disabled]="!buttonForm.valid"
+        class="bg-blue-500 text-white rounded-xl self-center p-2">Add Instruction</button>
 
-        <label for="">Height: </label>
-        <input id="" type="number" maxlength="4" minlength="0" formControlName="height" class="bg-slate-600 text-white p-2 rounded-md">
-    </div>
-
-    <div class="flex flex-row">
-        <label for="">Actoin: </label>
-        <select id="" type="text" formControlName="action" class="bg-slate-600 text-white p-2 rounded-md">
-            <option>Command</option>
-            <option>Media</option>
-            <option>Message</option>
-        </select>
-        <p>{{buttonForm.value.action}}</p>
-    </div>
-
-    <div>
-        <p>Complete the form to enable button.</p>
-        <p>Form Status: {{ buttonForm.status }}</p>
-        <button type="submit" [disabled]="!buttonForm.valid"
-        class="bg-blue-400 rounded-md cursor-pointer p-1">Submit</button>
-    </div>
-
-  </form>
+    <p>Results (DEBUG): </p>
+    <p class="mt-2">{{buttonForm.value | json}}</p>
+</form>
