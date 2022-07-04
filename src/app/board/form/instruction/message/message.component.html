@@ -1,0 +1,9 @@
+<form [formGroup]="childForm">
+    <div class="flex flex-row gap-x-2">
+        <p>Message:</p>
+        <input type="text" formControlName="message" class="formBackground ml-2">
+        <div *ngIf="mesageField.hasError('required') && mesageField.dirty">
+            <p>Error: Message is required</p>
+        </div>
+    </div>
+</form>

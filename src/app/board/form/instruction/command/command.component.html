@@ -1,0 +1,22 @@
+<form [formGroup]="childForm">
+    <div class="flex flex-row mt-2 gap-x-2">
+        <p>Name:</p>
+        <input type="text" formControlName="name" class="formBackground ml-2">
+        <div *ngIf="nameField.hasError('required') && nameField.dirty">
+            <p>Error: Name is required</p>
+        </div>
+    </div>
+
+    <div class="flex flex-row mt-2 gap-x-2">
+        <p>Trigger:</p>
+        <input type="text" formControlName="trigger" class="formBackground ml-2">
+        <div *ngIf="triggerField.hasError('required') && triggerField.dirty">
+            <p>Error: Trigger is required</p>
+        </div>
+    </div>
+
+    <div class="flex flex-row mt-2 gap-x-2">
+        <p>Context:</p>
+        <input type="text" formControlName="context" class="formBackground ml-2">
+    </div>
+</form>
