@@ -1,0 +1,17 @@
+<form [formGroup]="childForm">
+    <div class="flex flex-row gap-x-2">
+        <p>Width:</p>
+        <input type="number" formControlName="width" class="formBackground" title="The width of the button">
+        <div *ngIf="widthField.hasError('required') && widthField.dirty">
+            <p>Error: Width is required</p>
+        </div>
+    </div>
+
+    <div class="flex flex-row gap-x-2 mt-2">
+        <p>Height:</p>
+        <input type="number" formControlName="height" class="formBackground" title="The height of the button">
+        <div *ngIf="heightField.hasError('required') && heightField.dirty">
+            <p>Error: Height is required</p>
+        </div>
+    </div>
+</form>
