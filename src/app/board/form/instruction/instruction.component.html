@@ -1,8 +1,16 @@
-<form [formGroup]="childForm">
-    <input formControlName="name" class="bg-blue-600 text-white m-1">
-    <input formControlName="email" class="bg-blue-600 text-white m-1">
-    <div *ngIf="nameField.hasError('required') && nameField.dirty">
+<form [formGroup]="childForm" class="flex flex-col gap-4 border border-solid border-red-300">
+    <select formControlName="action" class="formBackground" (change)="changeType($event.target)">
+        <option value="Command">Command</option>
+        <option value="Media">Media</option>
+        <option value="Message">Message</option>
+    </select>
+    <div *ngIf="actionField.hasError('required') && actionField.dirty">
         <p>Error: Field is required</p>
     </div>
-    <button (click)="delete()">Delete</button>
+
+    <app-message *ngIf="dataType == 'Message'" [childForm]="dataField | cast"></app-message>
+    <app-media *ngIf="dataType == 'Media'" [childForm]="dataField | cast"></app-media>
+    <app-command *ngIf="dataType == 'Command'" [childForm]="dataField | cast"></app-command>
+
+    <button (click)="delete()" class="bg-red-500 text-white rounded-xl self-center p-2">Delete</button>
 </form>

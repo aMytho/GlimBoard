@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommandComponent } from './command/command.component';
+import { MediaComponent } from './media/media.component';
+import { MessageComponent } from './message/message.component';
 
 @Component({
     selector: 'app-instruction',
@@ -16,21 +19,42 @@ export class InstructionComponent {
 
     @Output()
     public deleteEvent = new EventEmitter<number>()
-    constructor() { }
 
+    public dataType: string = "";
+
+    constructor() { }
 
     static addInstruction(): FormGroup {
         return new FormGroup({
-            name: new FormControl('', Validators.required),
-            email: new FormControl()
+            action: new FormControl('', Validators.required),
+            data: new FormControl()
         })
+    }
+
+    changeType(selection: any) {
+        switch (selection.value) {
+            case "Command":
+                this.childForm.setControl("data", CommandComponent.addCommand());
+                break;
+            case "Media":
+                this.childForm.setControl("data", MediaComponent.addMedia());
+                break;
+            case "Message":
+                this.childForm.setControl("data", MessageComponent.addMessage());
+                break;
+        }
+        this.dataType = selection.value as string;
     }
 
     public delete() {
         this.deleteEvent.next(this.index)
     }
 
-    get nameField(): FormControl {
-        return this.childForm.get('name') as FormControl
+    get actionField(): FormControl {
+        return this.childForm.get('action') as FormControl
+    }
+
+    get dataField() {
+        return this.childForm.get("data");
     }
 }
