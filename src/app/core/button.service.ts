@@ -19,12 +19,23 @@ export class ButtonService {
     }
 
     runAction(button: Button) {
-        if (button.action === 'runCommand') {
-            console.log('run command');
-        } else if (button.action === 'runMedia') {
-            console.log('run media');
-        } else if (button.action === 'sendMessage') {
-            this.apiService.send(button);
-        }
+        // TODO - Read button instructions and exectute
+    }
+
+    addButton(btn: Button) {
+        console.log(btn, this.buttons)
+        this.buttons.push(btn);
+    }
+
+    generateID() {
+        let numbers: number[] = [];
+        this.buttons.forEach(btn => {
+            numbers.push(btn.id);
+        });
+        numbers.sort((a, b) => {
+            return b - a;
+        });
+        console.log(numbers);
+        return numbers[0] + 1
     }
 }
