@@ -18,8 +18,10 @@ export class DimensionsComponent {
 
     static addDimensions(): FormGroup {
         return new FormGroup({
-            width: new FormControl(5, Validators.required),
-            height: new FormControl(5, Validators.required)
+            width: new FormControl(5, [Validators.required, Validators.min(1)]),
+            height: new FormControl(5, [Validators.required, Validators.min(1)]),
+            positionX: new FormControl(5, [Validators.required, Validators.min(0)]),
+            positionY: new FormControl(5, [Validators.required, Validators.min(0)])
         })
     }
 
@@ -28,5 +30,13 @@ export class DimensionsComponent {
     }
     get heightField(): FormControl {
         return this.childForm.get('height') as FormControl
+    }
+
+    get positionX(): FormControl {
+        return this.childForm.get("positionX") as FormControl;
+    }
+
+    get positionY(): FormControl {
+        return this.childForm.get("positionY") as FormControl;
     }
 }

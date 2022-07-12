@@ -5,6 +5,9 @@
         <div *ngIf="widthField.hasError('required') && widthField.dirty">
             <p>Error: Width is required</p>
         </div>
+        <div *ngIf="widthField.hasError('min')">
+            Error: Min width of 1 is required
+        </div>
     </div>
 
     <div class="flex flex-row gap-x-2 mt-2">
@@ -12,6 +15,25 @@
         <input type="number" formControlName="height" class="formBackground" title="The height of the button">
         <div *ngIf="heightField.hasError('required') && heightField.dirty">
             <p>Error: Height is required</p>
+        </div>
+        <div *ngIf="heightField.hasError('min')">
+            Error: Min height of 1 is required
+        </div>
+    </div>
+
+    <div class="flex flex-row gap-x-2 mt-2">
+        <p>Poxition X:</p>
+        <input type="number" formControlName="positionX" class="formBackground" title="The position on the x axis">
+        <div *ngIf="positionX.hasError('required') && heightField.dirty">
+            <p>Error: Position is required</p>
+        </div>
+    </div>
+
+    <div class="flex flex-row gap-x-2 mt-2">
+        <p>Position Y:</p>
+        <input type="number" formControlName="positionY" class="formBackground" title="The position on the y axis">
+        <div *ngIf="positionY.hasError('required') && heightField.dirty">
+            <p>Error: Position is required</p>
         </div>
     </div>
 </form>
