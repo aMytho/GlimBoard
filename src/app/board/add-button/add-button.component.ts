@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ButtonService } from 'src/app/core/button.service';
 import { DimensionsComponent } from '../form/dimensions/dimensions.component';
 import { InstructionComponent } from '../form/instruction/instruction.component';
 
@@ -14,6 +15,7 @@ export class AddButtonComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
+        private buttonService: ButtonService
     ) { }
 
     ngOnInit(): void {
@@ -52,5 +54,9 @@ export class AddButtonComponent implements OnInit {
 
     public submit() {
         console.log(this.buttonForm);
+        console.log(123)
+        if (this.buttonForm.valid) {
+            this.buttonService.addButton(this.buttonForm.value);
+        }
     }
 }

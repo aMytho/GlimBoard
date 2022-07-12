@@ -2,12 +2,14 @@ import { Button } from "../board/button/button";
 
 export let buttons: Button[] = [
     {
-        id: 0,
+        id: "0",
         name: "Command: Shoutout",
         img: null,
         dimensions: {
-            height: 100,
-            width: 100
+            height: 5,
+            width: 5,
+            positionX: 1,
+            positionY: 2
         },
         instructions: [
             {
@@ -18,10 +20,14 @@ export let buttons: Button[] = [
                     }
                 }
             }
-        ]
+        ],
+        x: 1,
+        y: 1,
+        w: 5,
+        h: 5
     },
     {
-        id: 1,
+        id: "1",
         name: "Message: Send Hype",
         img: null,
         instructions: [
@@ -35,12 +41,18 @@ export let buttons: Button[] = [
             }
         ],
         dimensions: {
-            height: 100,
-            width: 100
-        }
+            height: 5,
+            width: 5,
+            positionX: 1,
+            positionY: 2
+        },
+        x: 1,
+        y: 1,
+        w: 5,
+        h: 5
     },
     {
-        id: 2,
+        id: "2",
         name: "Command: Confetti",
         img: null,
         instructions: [
@@ -54,12 +66,18 @@ export let buttons: Button[] = [
             }
         ],
         dimensions: {
-            height: 100,
-            width: 100
-        }
+            height: 5,
+            width: 5,
+            positionX: 1,
+            positionY: 2
+        },
+        x: 1,
+        y: 1,
+        w: 5,
+        h: 5
     },
     {
-        id: 3,
+        id: "3",
         name: "Media: Yeet",
         img: null,
         instructions: [
@@ -73,8 +91,14 @@ export let buttons: Button[] = [
             }
         ],
         dimensions: {
-            height: 100,
-            width: 100
-        }
+            height: 5,
+            width: 5,
+            positionX: 1,
+            positionY: 2
+        },
+        x: 1,
+        y: 1,
+        w: 5,
+        h: 5
     }
 ]

@@ -1,14 +1,16 @@
 <div class="mt-4 gap-4 h-full w-full" id="boardContainer">
     <ktd-grid [cols]="config.columns"
     [rowHeight]="config.rowHeight"
-    [layout]="layout"
+    [layout]="buttons"
     [compactType]="config.squish"
-    (layoutUpdated)="onLayoutUpdated($event)">
-        <ktd-grid-item *ngFor="let button of buttons;" [id]="button.id.toString()">
-            <p>{{button.id}}</p>
+    (layoutUpdated)="onLayoutUpdated($event)"
+    (dragEnded)="onDragEnded($event)"
+    (resizeEnded)="onResize($event)">
+        <ktd-grid-item *ngFor="let button of buttons;" [id]="button.id">
             <app-button [button]="button"></app-button>
         </ktd-grid-item>
     </ktd-grid>
+    <p>{{buttons | json}}</p>
 </div>
 
 <div class="fixed z-50 right-4 bottom-4 bg-purple-500 rounded-xl flex flex-col gap-y-2 p-2">

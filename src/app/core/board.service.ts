@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { KtdGridLayoutItem } from '@katoid/angular-grid-layout';
 import { ApiService } from './api.service';
 import { BoardConfig } from './types/boardConfig';
 import { OutgoingPacket } from './types/packet';
