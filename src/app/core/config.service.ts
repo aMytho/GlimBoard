@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   url: string;
+
   constructor() {
     this.url = localStorage.getItem('url') || 'ws://localhost:3001';
   }

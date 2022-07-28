@@ -8,9 +8,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NotificationComponent {
     constructor(private _snackBar: MatSnackBar) {
+        /*
         this._snackBar.open("This is a custom notification!", "Close", {
             panelClass: ["bg-blue-400"],
             duration: 7000
         });
+        */
     }
 }
