@@ -1,11 +1,8 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { initApiFactory } from './api-factory';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiService } from './core/api.service';
-import { ConfigService } from './core/config.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -28,14 +25,6 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatToolbarModule,
     MatSnackBarModule,
     MatBottomSheetModule
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApiFactory,
-      deps: [ApiService, ConfigService],
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
