@@ -1,4 +1,4 @@
-import { Button } from "../board/button/button";
+import { Button } from "../../board/button/button";
 
 export let buttons: Button[] = [
     {

@@ -7,15 +7,18 @@ import { IncomingPacket, OutgoingPacket } from './types/packet';
 })
 export class ApiService {
     ws!: WebSocket;
+    publicisConnected = false;
     private emitter = new EventEmitter<any>();
     constructor(
         private configService: ConfigService
     ) { }
 
 
-    connect(url: string) {
+    connect() {
         return new Promise(resolve => {
-            this.ws = new WebSocket(url);
+            this.ws = new WebSocket(
+                this.configService.get("url", "http://localhost:4201/api/", false)
+                );
             this.ws.onopen = (data) => {
                 resolve(true)
                 this.onConnect(data);
@@ -58,5 +61,31 @@ export class ApiService {
                 }
             })
         })
+    }
+
+    async sendHTTPRequest(endpint: string, method: string, body: any = {}) {
+        try {
+            let url = this.configService.get("url", "http://localhost:4201/api/", false);
+            let response = await fetch(url + endpint, {
+                method: method,
+                body: this.getCheck(method, body)
+            });
+            let result = await response.json();
+            console.log(result, response.status);
+            return {
+                status: response.status,
+                result: result
+            };
+        } catch (e) {
+            return {
+                status: 1,
+                result: null
+            };
+        }
+    }
+
+    getCheck(method: string, body: any) {
+        if (method == "GET") return undefined;
+        return JSON.stringify(body);
     }
 }

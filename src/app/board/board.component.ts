@@ -1,5 +1,6 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { KtdDragEnd, KtdGridLayout, KtdResizeEnd, ktdTrackById } from '@katoid/angular-grid-layout';
 import { BoardService } from '../core/board.service';
 import { ButtonService } from '../core/button.service';
@@ -17,6 +18,34 @@ export class BoardComponent {
     rowHeight: number = 100;
     trackById = ktdTrackById
 
+    public mode: "add" | "edit" | "dimensions" = "dimensions";
+    constructor(
+        private buttonService: ButtonService,
+        private bottomSheet: MatBottomSheet,
+        private boardService: BoardService,
+        private notification: MatSnackBar
+    ) { }
+
+
+    get buttons() {
+        return this.buttonService.allButtons;
+    }
+
+    get boards() {
+        return this.boardService.allBoards;
+    }
+
+    openTemplateSheetMenu(mode: "add" | "edit" | "dimensions") {
+        this.mode = mode;
+        this.bottomSheet.open(this.TemplateBottomSheet, {
+            panelClass: "slider",
+        });
+    }
+
+    closeTemplateSheetMenu() {
+        this.bottomSheet.dismiss();
+    }
+
     onLayoutUpdated(ev:any) {
         console.log(ev)
     }
@@ -31,30 +60,18 @@ export class BoardComponent {
         this.buttonService.updateButton(event.layoutItem)
     }
 
-    public mode: "add" | "edit" | "dimensions" = "dimensions";
-    constructor(
-        private buttonService: ButtonService,
-        private bottomSheet: MatBottomSheet,
-        private boardService: BoardService
-    ) { }
-
-
-    get buttons() {
-        return this.buttonService.allButtons;
-    }
-
-    openTemplateSheetMenu(mode: "add" | "edit" | "dimensions") {
-        this.mode = mode;
-        this.bottomSheet.open(this.TemplateBottomSheet, {
-            panelClass: "slider",
-        });
-    }
-
-    closeTemplateSheetMenu() {
-        this.bottomSheet.dismiss();
-    }
-
     get config() {
         return this.boardService.getConfig;
+    }
+
+    requestBoards() {
+        console.log("Attempting to request boards");
+        this.notification.open("Attempting to retrieve boards...", "Close", {
+            panelClass: ["bg-blue-400"],
+            duration: 7000
+        });
+        setTimeout(() => {
+            this.boardService.getBoards();
+        }, 4000);
     }
 }

@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { KtdGridLayout, KtdGridLayoutItem } from '@katoid/angular-grid-layout';
 import { Button } from '../board/button/button';
-import { ApiService } from './api.service';
-import { buttons } from './mock-buttons';
+import { BoardService } from './board.service';
+import { buttons } from './defaults/mock-buttons';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ButtonService {
-    buttons: Button[] = [];
-
     constructor(
-        private apiService: ApiService,
-    ) {
-        this.buttons = buttons;
-    }
+        private boardService: BoardService
+    ) {}
 
     get allButtons() {
-        return this.buttons;
+        return this.boardService.activeBoard?.buttons || [];
+    }
+
+    set allButtons(buttons) {
+        this.boardService.activeBoard.buttons = buttons;
     }
 
     runAction(button: Button) {
@@ -25,30 +25,32 @@ export class ButtonService {
     }
 
     addButton(btn: Button) {
-        console.log(btn, this.buttons);
+        console.log(btn, this.allButtons);
         btn.id = this.generateID().toString();
         btn.h = btn.dimensions.height;
         btn.w = btn.dimensions.width;
         btn.x = btn.dimensions.positionX;
         btn.y = btn.dimensions.positionY;
-        this.buttons = [...this.buttons, btn]
+        this.allButtons = [...this.allButtons, btn];
+        this.boardService.updateBoard();
     }
 
     generateID() {
         let numbers: number[] = [];
-        this.buttons.forEach(btn => {
+        this.allButtons.forEach(btn => {
             numbers.push(Number(btn.id));
         });
         numbers.sort((a, b) => {
             return b - a;
         });
         console.log(numbers);
-        return numbers[0] + 1
+        return numbers[0] + 1;
     }
 
     updateButton(btn: KtdGridLayoutItem) {
+        console.log("Updating a button")
         let tempButton: Partial<Button> = {};
-        let newButtons = this.buttons.filter((button, index, total) => {
+        let newButtons = this.allButtons.filter((button, index, total) => {
             if (btn.id == button.id) {
                 tempButton = button;
                 return false
@@ -57,6 +59,8 @@ export class ButtonService {
         });
         tempButton.dimensions!.height = btn.h;
         tempButton.dimensions!.width = btn.w;
-        this.buttons = [...newButtons, Object.assign(tempButton as Button, btn)];
+        this.allButtons = [...newButtons, Object.assign(tempButton as Button, btn)];
+
+        this.boardService.updateBoard();
     }
 }
