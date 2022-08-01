@@ -77,6 +77,7 @@ export class ApiService {
                 result: result
             };
         } catch (e) {
+            console.log(e)
             return {
                 status: 1,
                 result: null
