@@ -68,8 +68,25 @@ export class BoardService {
         this.config = cfg;
     }
 
-    removeBoard(id: number) {
-
+    async removeBoard(id: number) {
+        let boardDeleted = await this.apiService.sendHTTPRequest("boards", "DELETE", {
+            id: id
+        });
+        if (boardDeleted.result && boardDeleted.result.removed == true) {
+            this.notification.open("Board deleted.", "Close", {
+                panelClass: ["bg-green-400"],
+                duration: 7000
+            });
+            // Remove our copy
+            this.allBoards = this.allBoards.filter((board, index) => {
+                return board.id != id;
+            })
+        } else {
+            this.notification.open("Failed to delete board.", "Close", {
+                panelClass: ["bg-red-400"],
+                duration: 7000
+            });
+        }
     }
 
     /**

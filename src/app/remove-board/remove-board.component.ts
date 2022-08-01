@@ -16,21 +16,7 @@ export class RemoveBoardComponent {
     ) { }
 
     async deleteBoard(value: string) {
-        value = value.trim();
-        if (value.length == 0) {
-            this.showError("You need to choose a board to delete")
-        }
-        let boards:Board[] = await this.boardService.getBoards() as Board[];
-        for (const board of boards) {
-            if (board.name == value) {
-                this.boardService.removeBoard(board.id);
-                this.error = "";
-                this._snackBar.open("Board Deleted!", "Close", {
-                    panelClass: ["bg-red-400"],
-                    duration: 7000
-                });
-            }
-        }
+        this.boardService.removeBoard(Number(value));
     }
 
     showError(msg: string) {
@@ -43,5 +29,9 @@ export class RemoveBoardComponent {
         } else {
             this.showError("");
         }
+    }
+
+    get boards() {
+        return this.boardService.allBoards;
     }
 }
