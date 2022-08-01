@@ -1,0 +1,23 @@
+<p>Enter the new dimensions for the board.</p>
+<form [formGroup]="dimensionForm" class="text-xl font-semibold flex flex-col gap-4 mt-2">
+    <div class="flex flex-row gap-x-2">
+        <p>The name of the board</p>
+        <input formControlName="name" class="formBackground" type="text">
+    </div>
+    <div class="flex flex-row gap-x-2">
+        <p>The amount of colums</p>
+        <input formControlName="columns" class="formBackground" type="number">
+    </div>
+    <div class="flex flex-row gap-x-2">
+        <p>The height of one row</p>
+        <input formControlName="rowHeight" class="formBackground" type="number">
+    </div>
+    <p>Select the mode to remove extra space</p>
+    <select formControlName="squish" class="formBackground">
+        <option value="default">Default</option>
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+    </select>
+
+    <button class="bg-green-500 text-white rounded-xl self-center p-2" (click)="submit()">Submit</button>
+</form>

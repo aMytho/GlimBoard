@@ -35,6 +35,10 @@ export class BoardComponent {
         return this.boardService.allBoards;
     }
 
+    get board() {
+        return this.boardService.activeBoard;
+    }
+
     openTemplateSheetMenu(mode: "add" | "edit" | "dimensions") {
         this.mode = mode;
         this.bottomSheet.open(this.TemplateBottomSheet, {

@@ -4,6 +4,9 @@ export let mockBoard: Board = {
     name: "Default Board",
     description: "The default board created",
     id: 0,
+    columns: 12,
+    rowHeight: 25,
+    squish: null,
     buttons: [{
         dimensions: {
             height: 5,

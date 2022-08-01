@@ -1,8 +1,8 @@
 <div class="mt-4 gap-4 h-full w-full" id="boardContainer" *ngIf="boards.length != 0">
-    <ktd-grid [cols]="config.columns"
-    [rowHeight]="config.rowHeight"
+    <ktd-grid [cols]="board.columns"
+    [rowHeight]="board.rowHeight"
     [layout]="buttons"
-    [compactType]="config.squish"
+    [compactType]="board.squish"
     (layoutUpdated)="onLayoutUpdated($event)"
     (dragEnded)="onDragEnded($event)"
     (resizeEnded)="onResize($event)">
@@ -47,6 +47,6 @@
         <p>No button selected</p>
     </div>
     <div *ngIf="this.mode == 'dimensions'">
-        <app-dimensions></app-dimensions>
+        <app-board-settings></app-board-settings>
     </div>
 </ng-template>

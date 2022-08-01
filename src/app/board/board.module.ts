@@ -12,6 +12,7 @@ import { DimensionsComponent } from './form/dimensions/dimensions.component';
 import { MessageComponent } from './form/instruction/message/message.component';
 import { MediaComponent } from './form/instruction/media/media.component';
 import { CommandComponent } from './form/instruction/command/command.component';
+import { BoardSettingsComponent } from './board-settings/board-settings.component';
 
 
 
@@ -24,7 +25,8 @@ import { CommandComponent } from './form/instruction/command/command.component';
     DimensionsComponent,
     MessageComponent,
     MediaComponent,
-    CommandComponent
+    CommandComponent,
+    BoardSettingsComponent
   ],
   imports: [
     CommonModule,
