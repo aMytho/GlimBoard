@@ -1,4 +1,4 @@
-<p>Enter the new dimensions for the board.</p>
+<p>Enter the new settings for the board.</p>
 <form [formGroup]="dimensionForm" class="text-xl font-semibold flex flex-col gap-4 mt-2">
     <div class="flex flex-row gap-x-2">
         <p>The name of the board</p>
@@ -12,6 +12,8 @@
         <p>The height of one row</p>
         <input formControlName="rowHeight" class="formBackground" type="number">
     </div>
+    <p>The buttons will be resized to make extra room if required. Resize accordingly!</p>
+    <hr>
     <p>Select the mode to remove extra space</p>
     <select formControlName="squish" class="formBackground">
         <option value="default">Default</option>
