@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InfoComponent } from './info/info.component';
 
 const routes: Routes = [
     {
@@ -10,6 +11,14 @@ const routes: Routes = [
     {
         path: "modifyboard/remove", loadChildren: () =>
             import('./remove-board/remove-board.module').then((m) => m.RemoveBoardModule)
+    },
+    {
+        path: "modifyboard/create", loadChildren: () =>
+        import("./create-board/create-board.module").then(m => m.CreateBoardModule)
+    },
+    {
+        path: "info",
+        component: InfoComponent
     },
     {
         path: '',

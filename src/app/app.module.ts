@@ -10,12 +10,14 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { NotificationComponent } from './notification/notification.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     NotificationComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,
