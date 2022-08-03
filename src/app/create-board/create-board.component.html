@@ -1,0 +1,12 @@
+<div class="p-4">
+    <h2 class="font-semibold text-lg">Create a new board</h2>
+
+    <input type="text" class="form-select form-select-lg max-w-sm
+    appearance-none block w-full text-xl font-normal text-gray-700
+    bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+    focus:border-blue-600 focus:outline-none" #input>
+    <p>The board must have a unique name. A connection must be established with Glimboi to create a new board.</p>
+    <p>If you can't find a previous board ensure you are connected to the bot!</p>
+    <button class="bg-green-500 text-white rounded-xl self-center p-2" (click)="submit(input.value)">Create</button>
+</div>

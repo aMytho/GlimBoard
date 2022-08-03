@@ -121,4 +121,17 @@ export class BoardService {
         this.allBoards.push(mockBoard);
         this.createBoard();
     }
+
+    createBoardWithName(name: string) {
+        let newBoard = Object.assign({}, mockBoard);
+        newBoard.name = name;
+        this.allBoards.unshift(newBoard);
+        this.createBoard();
+    }
+
+    checkIfBoardExists(name: string) {
+        return this.allBoards.find(element => {
+            return element.name == name
+        });
+    }
 }
