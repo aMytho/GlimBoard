@@ -15,6 +15,7 @@ export class ButtonComponent implements OnInit {
     }
 
     click() {
+        console.log(`Sending ${this.button.name} to Glimboi for activation`);
         this.buttonService.runAction(this.button);
     }
 }

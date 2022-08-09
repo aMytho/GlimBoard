@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
-import { IncomingPacket, OutgoingPacket } from './types/packet';
+import { OutgoingPacket } from './types/packet';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +36,7 @@ export class ApiService {
         console.log("Connected to the api", data);
     }
 
-    onMessage(message: IncomingPacket) {
+    onMessage(message: any) {
         console.log(message);
         this.emitter.emit(message);
     }

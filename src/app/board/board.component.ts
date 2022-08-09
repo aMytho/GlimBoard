@@ -1,7 +1,7 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { KtdDragEnd, KtdGridLayout, KtdResizeEnd, ktdTrackById } from '@katoid/angular-grid-layout';
+import { KtdDragEnd, KtdResizeEnd, ktdTrackById } from '@katoid/angular-grid-layout';
 import { BoardService } from '../core/board.service';
 import { ButtonService } from '../core/button.service';
 
