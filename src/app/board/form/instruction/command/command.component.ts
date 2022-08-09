@@ -14,17 +14,16 @@ export class CommandComponent {
 
     static addCommand() {
         return new FormGroup({
-            name: new FormControl("", Validators.required),
-            trigger: new FormControl("", Validators.required),
-            context: new FormControl("", Validators.required)
+            commandName: new FormControl("", Validators.required),
+            commandTrigger: new FormControl("Manual", Validators.required),
         })
     }
 
     get nameField(): FormControl {
-        return this.childForm.get("name") as FormControl;
+        return this.childForm.get("commandName") as FormControl;
     }
 
     get triggerField(): FormControl {
-        return this.childForm.get("trigger") as FormControl;
+        return this.childForm.get("commandTrigger") as FormControl;
     }
 }

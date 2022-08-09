@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,11 +15,12 @@ export class MediaComponent {
 
     static addMedia(): FormGroup {
         return new FormGroup({
-            media: new FormControl("", Validators.required)
+            mediaName: new FormControl("", Validators.required),
+            mediaType: new FormControl("", Validators.required)
         });
     }
 
     get mediaField(): FormControl {
-        return this.childForm.get("media") as FormControl;
+        return this.childForm.get("mediaName") as FormControl;
     }
 }
