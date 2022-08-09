@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { KtdGridLayout, KtdGridLayoutItem } from '@katoid/angular-grid-layout';
+import { KtdGridLayoutItem } from '@katoid/angular-grid-layout';
 import { Button } from '../board/button/button';
+import { ApiService } from './api.service';
 import { BoardService } from './board.service';
-import { buttons } from './defaults/mock-buttons';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ButtonService {
     constructor(
-        private boardService: BoardService
+        private boardService: BoardService,
+        private apiService: ApiService
     ) {}
 
     get allButtons() {
@@ -22,6 +23,26 @@ export class ButtonService {
 
     runAction(button: Button) {
         // TODO - Read button instructions and exectute
+        button.instructions.forEach(instruction => {
+            switch(instruction.action) {
+                case "Message":
+                    this.apiService.sendHTTPRequest("message", "POST", {
+                        message: instruction.data.message
+                    });
+                    break;
+                case "Media":
+                    this.apiService.sendHTTPRequest("media", "POST", {
+                        media: instruction.data
+                    });
+                    // TO DO MAKE SURE IT WORKS
+                    break;
+                case "Command":
+                    this.apiService.sendHTTPRequest("command", "POST", {
+                        command: instruction.data
+                    })
+                    break;
+            }
+        })
     }
 
     addButton(btn: Button) {
