@@ -84,4 +84,11 @@ export class ButtonService {
 
         this.boardService.updateBoard();
     }
+
+    deleteButton(name: string) {
+        this.allButtons = this.allButtons.filter(btn => {
+            return btn.name != name;
+        });
+        this.boardService.updateBoard();
+    }
 }

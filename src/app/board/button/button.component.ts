@@ -18,4 +18,8 @@ export class ButtonComponent implements OnInit {
         console.log(`Sending ${this.button.name} to Glimboi for activation`);
         this.buttonService.runAction(this.button);
     }
+
+    delete() {
+        this.buttonService.deleteButton(this.button.name);
+    }
 }
