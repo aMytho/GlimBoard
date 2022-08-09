@@ -8,20 +8,11 @@ export interface OutgoingPacket {
         trigger: string;
         context: any;
     };
-    media?: {
-        name: string;
-        type: string;
-    };
-    message?: {
-        message: string;
-    }
+    media?: string;
+    message?: string;
     board?: Button;
 
     request?: {
         type: "getBoard" | "getBoards"
     }
-}
-
-export interface IncomingPacket {
-
 }

@@ -12,18 +12,12 @@ export class Button {
 }
 
 export type ButtonAction = {
-    command?: {
-        name: string;
-        trigger: string;
-        context: any;
-    };
-    media?: {
-        name: string;
-        type: string;
-    };
-    message?: {
-        message: string;
-    }
+    commandName?: string;
+    commandTrigger?: string;
+    commandContext?: any;
+    mediaName?: string;
+    mediaType?: string;
+    message?: string;
 }
 
 export type Instruction = {

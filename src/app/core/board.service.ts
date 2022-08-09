@@ -109,11 +109,13 @@ export class BoardService {
                 panelClass: ["bg-red-400"],
                 duration: 7000
             });
+            return false;
         } else {
             this.notification.open("Board created!.", "Close", {
                 panelClass: ["bg-green-400"],
                 duration: 7000
             });
+            return true;
         }
     }
 
@@ -125,8 +127,11 @@ export class BoardService {
     createBoardWithName(name: string) {
         let newBoard = Object.assign({}, mockBoard);
         newBoard.name = name;
-        this.allBoards.unshift(newBoard);
-        this.createBoard();
+        this.createBoard().then(val => {
+            if (val) {
+                this.allBoards.unshift(newBoard);
+            }
+        });
     }
 
     checkIfBoardExists(name: string) {

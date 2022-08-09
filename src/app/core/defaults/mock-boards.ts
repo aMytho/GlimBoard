@@ -20,9 +20,7 @@ export let mockBoard: Board = {
         instructions: [{
             action: "Message",
             data: {
-                message: {
-                    message: "Hello world from default button!"
-                }
+                message: "Hello world from default button!"
             }
         }],
         name: "Default Button",
