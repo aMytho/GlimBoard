@@ -127,6 +127,8 @@ export class BoardService {
     createBoardWithName(name: string) {
         let newBoard = Object.assign({}, mockBoard);
         newBoard.name = name;
+        newBoard.id = this.getNewId();
+        console.log(newBoard)
         this.createBoard().then(val => {
             if (val) {
                 this.allBoards.unshift(newBoard);
@@ -138,5 +140,30 @@ export class BoardService {
         return this.allBoards.find(element => {
             return element.name == name
         });
+    }
+
+    setActiveBoard(id: number) {
+        this.allBoards.sort((boardOne, boardTwo) => {
+            console.log(boardOne, boardTwo);
+            if (boardOne.id == id) {
+                return 1
+            }
+            return -1;
+        });
+    }
+
+    getNewId() {
+        let ids: number[] = [];
+        this.allBoards.forEach(board => ids.push(board.id));
+        ids.sort((one, two) => {
+            if (one < two) {
+                return 1
+            } else if (two < one) {
+                return -1
+            }
+            return 0
+        });
+        console.log(ids);
+        return ids[0] + 1;
     }
 }

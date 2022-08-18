@@ -17,6 +17,10 @@ const routes: Routes = [
         import("./create-board/create-board.module").then(m => m.CreateBoardModule)
     },
     {
+        path: "modifyboard/select", loadChildren: () =>
+        import("./select-board/select-board.module").then(m => m.SelectBoardModule)
+    },
+    {
         path: "info",
         component: InfoComponent
     },

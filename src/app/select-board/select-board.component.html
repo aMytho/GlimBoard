@@ -1,0 +1,26 @@
+<div class="px-4 pt-4">
+    <h2 class="text-lg font-semibold">Select the board to activate it.</h2>
+</div>
+<div class="p-4 pt-2">
+    <div class="flex flex-row gap-4 p-4">
+        <select #btn class="form-select form-select-lg max-w-sm
+        appearance-none block w-full text-xl font-normal text-gray-700
+        bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+        rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white
+        focus:border-blue-600 focus:outline-none">
+            <option *ngFor="let board of boards" value="{{board.id}}">
+                {{board.name}}
+            </option>
+        </select>
+        <p class="ext-red-500 font-semibold text-lg" *ngIf="boards.length == 0">
+            No boards were found
+        </p>
+        <button class="mt-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4
+        rounded" (click)="selectBoard(btn.value)">
+            Select
+        </button>
+    </div>
+    <div>
+        <p class="text-sm font-normal">Only one board can be selected at a time.</p>
+    </div>
+</div>
