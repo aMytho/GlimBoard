@@ -54,7 +54,6 @@ export class AddButtonComponent implements OnInit {
 
     public submit() {
         console.log(this.buttonForm);
-        console.log(123)
         if (this.buttonForm.valid) {
             this.buttonService.addButton(this.buttonForm.value);
         }

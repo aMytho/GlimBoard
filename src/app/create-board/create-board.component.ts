@@ -26,8 +26,7 @@ export class CreateBoardComponent implements OnInit {
             return
         }
         if (!this.boardService.checkIfBoardExists(name)) {
-            this.boardService.createBoardWithName("Testaaa")
-            console.log(this.boardService.checkIfBoardExists("Testaaa"));
+            this.boardService.createBoardWithName(name)
         } else {
             this.notification.open("Cannot create board. Name exists.", "Close", {
                 panelClass: ["bg-red-400"],
