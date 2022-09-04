@@ -165,7 +165,6 @@ export class BoardService {
             }
             return 0
         });
-        console.log(ids);
         return ids[0] + 1;
     }
 

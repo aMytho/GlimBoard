@@ -10,7 +10,7 @@ import { Button } from '../button/button';
   styleUrls: ['./button-form.component.css']
 })
 export class ButtonFormComponent implements OnInit {
-
+    public mode: string = "Add";
     public buttonForm!: FormGroup;
 
     constructor(
@@ -26,6 +26,7 @@ export class ButtonFormComponent implements OnInit {
     public generateForm(): void {
         if (this.buttonService.editingButton) {
             this.loadExistingData();
+            this.mode = "Edit";
             return;
         }
 
@@ -121,10 +122,16 @@ export class ButtonFormComponent implements OnInit {
     }
 
     public submit() {
-        console.log(this.buttonForm);
+        console.log(this.buttonForm.value);
         if (this.buttonForm.valid) {
-            this.buttonService.addButton(this.buttonForm.value);
-            this.bottomSheet.dismiss()
+            if (this.mode == "Edit") {
+                this.buttonService.updateButton(
+                    Object.assign(this.buttonForm.value, {id: this.buttonService.editingButton!.id})
+                    );
+            } else {
+                this.buttonService.addButton(this.buttonForm.value);
+            }
+            this.bottomSheet.dismiss();
         }
     }
 }

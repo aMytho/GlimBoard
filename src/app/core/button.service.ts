@@ -71,20 +71,33 @@ export class ButtonService {
         return numbers[0] + 1;
     }
 
+    /**
+     * Edits a button, not what it seems
+     * @param btn
+     */
     updateButton(btn: KtdGridLayoutItem) {
         console.log("Updating a button")
         let tempButton: Partial<Button> = {};
         let newButtons = this.allButtons.filter((button, index, total) => {
             if (btn.id == button.id) {
                 tempButton = button;
+                console.log(`Found ${JSON.stringify(tempButton)}`)
                 return false
             }
             return true
         });
+
+        // Due to mistypings we have to add some props ourselves to not break the grid.
         tempButton.dimensions!.height = btn.h;
         tempButton.dimensions!.width = btn.w;
+        // @ts-ignore
+        if (btn.dimensions) {
+            // @ts-ignore
+            tempButton.w = btn.dimensions.width;
+            // @ts-ignore
+            tempButton.h = btn.dimensions.height;
+        }
         this.allButtons = [...newButtons, Object.assign(tempButton as Button, btn)];
-
         this.boardService.updateBoard();
         this.editingButton = null;
     }
