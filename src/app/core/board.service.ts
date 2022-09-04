@@ -104,8 +104,8 @@ export class BoardService {
         }
     }
 
-    async createBoard() {
-        let request = await this.apiService.sendHTTPRequest("boards", "POST", this.activeBoard);
+    async createBoard(board: Board) {
+        let request = await this.apiService.sendHTTPRequest("boards", "POST", board);
         if (request.result == null) {
             this.notification.open("Failed to create board.", "Close", {
                 panelClass: ["bg-red-400"],
@@ -123,15 +123,15 @@ export class BoardService {
 
     private createDefaultBoard() {
         this.allBoards.push(mockBoard);
-        this.createBoard();
+        this.createBoard(mockBoard);
     }
 
     createBoardWithName(name: string) {
         let newBoard = Object.assign({}, mockBoard);
         newBoard.name = name;
         newBoard.id = this.getNewId();
-        console.log(newBoard)
-        this.createBoard().then(val => {
+        console.log(newBoard);
+        this.createBoard(newBoard).then(val => {
             if (val) {
                 this.allBoards.unshift(newBoard);
             }
@@ -145,13 +145,25 @@ export class BoardService {
     }
 
     setActiveBoard(id: number) {
-        this.allBoards.sort((boardOne, boardTwo) => {
-            console.log(boardOne, boardTwo);
-            if (boardOne.id == id) {
-                return 1
+        let index: number = 0;
+
+        // Find the board
+        let board = this.allBoards.filter((val, i) => {
+            if (val.id == id) {
+                index = i;
+                return true
             }
-            return -1;
+            return false
         });
+
+        // Remove it
+        if (board) {
+            this.allBoards.splice(index, 1);
+        }
+
+        // Add it at the beginning
+        this.allBoards.unshift(board[0]);
+        console.log(this.allBoards);
     }
 
     getNewId() {

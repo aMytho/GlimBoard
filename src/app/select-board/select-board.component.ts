@@ -18,8 +18,9 @@ export class SelectBoardComponent {
     }
 
     selectBoard(val: string) {
-        console.log(`Selecting board with ID of ${val}`);
-        this.boardService.setActiveBoard(Number(val));
+        if (val != undefined) {
+            console.log(`Selecting board with ID of ${val}`);
+            this.boardService.setActiveBoard(Number(val));
+        }
     }
-
 }
