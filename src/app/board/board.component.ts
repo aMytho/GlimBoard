@@ -41,9 +41,18 @@ export class BoardComponent {
 
     openTemplateSheetMenu(mode: "add" | "edit" | "dimensions") {
         this.mode = mode;
-        this.bottomSheet.open(this.TemplateBottomSheet, {
-            panelClass: "slider",
-        });
+
+        // If editing but no button is selected...
+        if (mode == "edit" && !this.buttonService.editingButton) {
+            this.notification.open("You must select a button to edit ✏️", "Close", {
+                panelClass: ["bg-red-400"],
+                duration: 5000
+            });
+        } else {
+            this.bottomSheet.open(this.TemplateBottomSheet, {
+                panelClass: "slider",
+            });
+        }
     }
 
     closeTemplateSheetMenu() {

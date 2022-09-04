@@ -8,6 +8,8 @@ import { BoardService } from './board.service';
     providedIn: 'root'
 })
 export class ButtonService {
+    public editingButton: Button | null = null;
+
     constructor(
         private boardService: BoardService,
         private apiService: ApiService
@@ -54,6 +56,7 @@ export class ButtonService {
         btn.y = btn.dimensions.positionY;
         this.allButtons = [...this.allButtons, btn];
         this.boardService.updateBoard();
+        this.editingButton = null;
     }
 
     generateID() {
@@ -83,6 +86,7 @@ export class ButtonService {
         this.allButtons = [...newButtons, Object.assign(tempButton as Button, btn)];
 
         this.boardService.updateBoard();
+        this.editingButton = null;
     }
 
     deleteButton(name: string) {
@@ -90,5 +94,17 @@ export class ButtonService {
             return btn.name != name;
         });
         this.boardService.updateBoard();
+        this.editingButton = null;
+    }
+
+    swapEditableState(id: string) {
+        this.allButtons = this.allButtons.map(btn => {
+            if (id == btn.id) {
+                btn.editable = !btn.editable;
+            } else {
+                btn.editable = false;
+            }
+            return btn;
+        });
     }
 }

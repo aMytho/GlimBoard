@@ -8,6 +8,7 @@ export class Button {
     public y!: number;
     public w!: number;
     public h!: number;
+    public editable?: boolean = false;
     constructor() {}
 }
 

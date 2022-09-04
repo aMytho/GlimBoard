@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ButtonService } from 'src/app/core/button.service';
 import { Button } from '../button/button';
 
@@ -14,7 +15,8 @@ export class ButtonFormComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private buttonService: ButtonService
+        private buttonService: ButtonService,
+        private bottomSheet: MatBottomSheet
     ) { }
 
     ngOnInit(): void {
@@ -52,6 +54,33 @@ export class ButtonFormComponent implements OnInit {
 
     public loadExistingData(): void {
         let btn: Button = this.buttonService.editingButton as Button;
+
+        let controls: any[] = [];
+        btn.instructions.forEach(instruction => {
+            controls.push(
+                this.fb.group({
+                action: this.fb.control(instruction.action, Validators.required),
+                data: this.fb.group({
+                    message: this.fb.control(instruction.data.message || ""),
+                    mediaName: this.fb.control(instruction.data.mediaName || ""),
+                    mediaType: this.fb.control(instruction.data.mediaType || ""),
+                    commandName: this.fb.control(instruction.data.commandName || ""),
+                    commandTrigger: this.fb.control(instruction.data.commandTrigger || "")
+                })
+            }))
+        });
+
+        this.buttonForm = this.fb.group({
+            instructions: this.fb.array(controls),
+            name: this.fb.control(btn.name, Validators.required),
+            dimensions: this.fb.group({
+                width: this.fb.control(btn.w, [Validators.required, Validators.min(1)]),
+                height: this.fb.control(btn.h, [Validators.required, Validators.min(1)]),
+                positionX: this.fb.control(btn.x, [Validators.required, Validators.min(0)]),
+                positionY: this.fb.control(btn.y, [Validators.required, Validators.min(0)])
+            })
+        });
+        console.log(this.buttonForm.value);
     }
 
     get instructionAray() {
@@ -95,6 +124,7 @@ export class ButtonFormComponent implements OnInit {
         console.log(this.buttonForm);
         if (this.buttonForm.valid) {
             this.buttonService.addButton(this.buttonForm.value);
+            this.bottomSheet.dismiss()
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ButtonService } from 'src/app/core/button.service';
 import { Button } from './button';
 
@@ -7,12 +7,12 @@ import { Button } from './button';
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.css']
 })
-export class ButtonComponent implements OnInit {
-    @Input() button!: Button;
-    constructor(private buttonService: ButtonService) { }
+export class ButtonComponent {
 
-    ngOnInit(): void {
-    }
+    @Input() public button!: Button;
+    constructor(
+        private buttonService: ButtonService,
+        ) { }
 
     click() {
         console.log(`Sending ${this.button.name} to Glimboi for activation`);
@@ -21,5 +21,11 @@ export class ButtonComponent implements OnInit {
 
     delete() {
         this.buttonService.deleteButton(this.button.name);
+    }
+
+    edit() {
+        this.buttonService.editingButton = this.button;
+        this.buttonService.swapEditableState(this.button.id);
+        console.log(this.button);
     }
 }

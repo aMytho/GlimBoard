@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Board } from '../board/board';
+import { Button } from '../board/button/button';
 import { ApiService } from './api.service';
 import { mockBoard } from './defaults/mock-boards';
 import { BoardConfig } from './types/boardConfig';
@@ -93,6 +94,7 @@ export class BoardService {
      * Updates our changes and sends them to Glimboi
      */
     async updateBoard() {
+        this.activeBoard.buttons = this.stripProps(this.activeBoard.buttons);
         let request = await this.apiService.sendHTTPRequest("boards", "PATCH", this.activeBoard);
         if (request.result == null) {
             this.notification.open("Failed to update board.", "Close", {
@@ -165,5 +167,12 @@ export class BoardService {
         });
         console.log(ids);
         return ids[0] + 1;
+    }
+
+    public stripProps(arr: Button[]) {
+        return arr.map(btn => {
+            delete btn.editable;
+            return btn;
+        })
     }
 }
