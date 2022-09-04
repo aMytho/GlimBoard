@@ -1,0 +1,116 @@
+<p>Add a button!</p>
+<form [formGroup]="buttonForm" class="text-xl font-semibold flex flex-col gap-4 mt-2">
+    <div class="flex flex-row gap-x-2">
+        <p>Name:</p>
+        <input formControlName="name" class="formBackground">
+        <div *ngIf="nameField.hasError('required') && nameField.dirty">
+            <p>Error: Name is required</p>
+        </div>
+    </div>
+
+    <!--Dimensions-->
+    <h3>Button Dimentions</h3>
+    <div formGroupName="dimensions">
+        <div class="flex flex-row gap-x-2">
+            <p>Width:</p>
+            <input type="number" formControlName="width" class="formBackground" title="The width of the button">
+            <div *ngIf="dimensionsField.get('width')!.hasError('required') && dimensionsField.get('width')!.dirty">
+                <p>Error: Width is required</p>
+            </div>
+            <div *ngIf="dimensionsField.get('width')!.hasError('min')">
+                Error: Min width of 1 is required
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-x-2 mt-2">
+            <p>Height:</p>
+            <input type="number" formControlName="height" class="formBackground" title="The height of the button">
+            <div *ngIf="dimensionsField.get('height')!.hasError('required') && dimensionsField.get('height')!.dirty">
+                <p>Error: Height is required</p>
+            </div>
+            <div *ngIf="dimensionsField.get('height')!.hasError('min')">
+                Error: Min height of 1 is required
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-x-2 mt-2">
+            <p>Poxition X:</p>
+            <input type="number" formControlName="positionX" class="formBackground" title="The position on the x axis">
+            <div
+                *ngIf="dimensionsField.get('positionX')!.hasError('required') && dimensionsField.get('positionX')!.dirty">
+                <p>Error: Position is required</p>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-x-2 mt-2">
+            <p>Position Y:</p>
+            <input type="number" formControlName="positionY" class="formBackground" title="The position on the y axis">
+            <div
+                *ngIf="dimensionsField.get('positionY')!.hasError('required') && dimensionsField.get('positionY')!.dirty">
+                <p>Error: Position is required</p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Button Instructions</h3>
+    <div>
+        <p>Choose any amount of instructions</p>
+        <div>
+            <div formArrayName="instructions" *ngFor="let instruction of instructionAray.controls; let i = index">
+                <div class="flex flex-col gap-4 border border-solid border-red-300 p-2" [formGroupName]="i">
+                    <select formControlName="action" class="formBackground"
+                        (change)="resetInstruction(i, $event.target)">
+                        <option value="Command">Command</option>
+                        <option value="Media">Media</option>
+                        <option value="Message">Message</option>
+                    </select>
+                    <div *ngIf="instruction.hasError('required') && instruction.dirty">
+                        <p>Error: Field is required</p>
+                    </div>
+                    {{instruction.value | json}}
+                    <div *ngIf="instruction.value.action == 'Message'" formGroupName="data">
+                        <div class="flex flex-row gap-x-2">
+                            <p>Message:</p>
+                            <input type="text" formControlName="message" class="formBackground ml-2">
+                        </div>
+                    </div>
+                    <div *ngIf="instruction.value.action == 'Media'" formGroupName="data">
+                        <div class="flex flex-row gap-x-2">
+                            <p>Media:</p>
+                            <input type="text" formControlName="mediaName" class="formBackground ml-2">
+
+                        </div>
+                        <div class="flex flex-row gap-x-2 mt-2">
+                            <p>Type:</p>
+                            <select formControlName="mediaType" class="formBackground ml-2">
+                                <option value="soundEffect">Sound Effect</option>
+                                <option value="imageGif">Image / GIF / Static</option>
+                                <option value="video">Video</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngIf="instruction.value.action == 'Command'" formGroupName='data'>
+                        <div class="flex flex-row mt-2 gap-x-2">
+                            <p>Name:</p>
+                            <input type="text" formControlName="commandName" class="formBackground ml-2">
+                        </div>
+
+                        <div class="flex flex-row mt-2 gap-x-2">
+                            <p>Trigger:</p>
+                            <select formControlName="commandTrigger" class="formBackground ml-2">
+                                <option selected value="Manual">Manual (Default, only option)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button (click)="delete(i)" class="bg-red-500 text-white rounded-xl self-center p-2">Delete Instruction</button>
+                </div>
+            </div>
+
+            <button (click)="addInstruction()" class="bg-blue-500 text-white rounded-xl self-center p-2 mt-1">
+                Add Instruction</button>
+        </div>
+    </div>
+
+    <button class="bg-green-500 text-white rounded-xl self-center p-2" (click)="submit()">Submit</button>
+</form>
