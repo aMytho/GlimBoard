@@ -114,7 +114,16 @@ export class ButtonFormComponent implements OnInit {
     }
 
     public addInstruction() {
-        this.instructionAray.push(this.fb.control(""));
+        this.instructionAray.push(this.fb.group({
+            action: this.fb.control("", Validators.required),
+            data: this.fb.group({
+                message: this.fb.control(""),
+                mediaName: this.fb.control(""),
+                mediaType: this.fb.control(""),
+                commandName: this.fb.control(""),
+                commandTrigger: this.fb.control("")
+            })
+        }));
     }
 
     public delete(index: number) {
