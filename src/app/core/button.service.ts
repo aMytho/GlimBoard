@@ -26,6 +26,7 @@ export class ButtonService {
     runAction(button: Button) {
         // TODO - Read button instructions and exectute
         button.instructions.forEach(instruction => {
+            console.log(instruction)
             switch(instruction.action) {
                 case "Message":
                     this.apiService.sendHTTPRequest("message", "POST", {
