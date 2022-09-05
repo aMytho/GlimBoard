@@ -40,7 +40,7 @@
 </div>
 
 <ng-template let-bottomSheetRef="bottomSheetRef" #templateBottomSheet>
-    <div *ngIf="this.mode == 'add' || 'edit'">
+    <div *ngIf="this.mode == 'add' || this.mode == 'edit'">
         <app-button-form></app-button-form>
     </div>
     <div *ngIf="this.mode == 'dimensions'">

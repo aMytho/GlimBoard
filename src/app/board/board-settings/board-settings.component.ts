@@ -31,14 +31,19 @@ export class BoardSettingsComponent implements OnInit {
 
     public submit() {
         let boardConfig: BoardConfig = {
-            columns: this.dimensionForm.get("columns")?.value,
+            columns: Number(this.dimensionForm.get("columns")?.value),
             rowHeight: Number(this.dimensionForm.get("rowHeight")?.value),
             squish: this.dimensionForm.get("squish")?.value,
         };
 
+        // @ts-ignore
+        if (boardConfig.squish == "default") {
+            boardConfig.squish = null;
+        }
+
         this.boardService.activeBoard.columns = boardConfig.columns;
         this.boardService.activeBoard.rowHeight = boardConfig.rowHeight;
-        this.boardService.activeBoard.squish = null;
+        this.boardService.activeBoard.squish = boardConfig.squish;
         this.boardService.activeBoard.name = this.dimensionForm.get("name")?.value,
         console.log("Updated board locally");
     }
